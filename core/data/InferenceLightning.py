@@ -23,7 +23,11 @@ class InferenceLightning(torch.utils.data.Dataset):
             if not os.path.exists(self._img_lmdb_path):
                 print('Only driving data, no image data.')
                 self._img_lmdb_path = None
-            self._records_path = os.path.join(lightning_path, 'lightning.pkl')
+            self._records_path = os.path.join(lightning_path, 'smoothed.pkl')
+            if not os.path.exists(self._records_path):
+                self._records_path = os.path.join(lightning_path, 'lightning.pkl')
+            if not os.path.exists(self._records_path):
+                raise ValueError('No tracking records found in {}.'.format(lightning_path))
         else:
             self._img_lmdb_path = None
             self._records_path = lightning_path
