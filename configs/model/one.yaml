@@ -1,0 +1,29 @@
+TASK:
+    MODEL_LIST: 'OneShotAvatar'
+    BUILD_TIME: '2023.07.23'
+
+MODEL:
+    MODEL_NAME: 'OneModel'
+    ENGINE_NAME: 'LightningEngine'
+
+CAMERA:
+    CAMERA_TYPE: 'cubic'
+
+DATASET_AUGMENT:
+    RESIZE: 512
+    RANGE: [0, 1]
+    SAMPLE_NUMBER: 2
+
+TRAIN:
+    GENERAL:
+        MONTE_CARLO: False
+        TRAIN_ITER: 200000
+        SHOW_STAT_ITER: 100
+        BATCH_SIZE_PER_GPU: 2
+        MODEL_DUMP_INTERVAL: 5000
+    OPTIMIZER:
+        LR: 1.0e-4
+    SCHEDULER:
+        TYPE: 'MultiStepLR' #'LinearDecay'
+        DECAY_RATE: 0.2
+        DECAY_STEP: [130000, 160000] #150000

@@ -1,0 +1,7 @@
+DATASET:
+    DATASET_NAME: 'VFHQ'
+    DATASET_LOADER: 'MVLightningPoints'
+    DATASET_PATH: './Data/VFHQ/img_lmdb'
+    RECORDS_PATH: './Data/VFHQ/dataset.pkl'
+    METADATA_PATH: './Data/VFHQ/camera.json'
+    BACKGROUND_VALUE: 0.0 # [0, 255]
