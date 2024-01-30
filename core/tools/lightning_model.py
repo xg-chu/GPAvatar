@@ -147,7 +147,7 @@ class LightningOSBase(ptl.LightningModule):
                 continue
             if 'style_mlp' in name or 'final_linear' in name:
             # if 'up_renderer' in name:
-                print(name)
+                # print(name)
                 renderer_params.append(param)
             elif 'attn_module' in name:
                 # print(name)

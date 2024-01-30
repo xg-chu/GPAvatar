@@ -48,6 +48,7 @@ class NeRFCamera(torch.nn.Module):
         weights = opacities * absorption
         accum_values = nerfacc.accumulate_along_rays(weights, values)
         accum_opacities = nerfacc.accumulate_along_rays(weights, None)
+        accum_opacities.clamp_(0.0, 1.0)
         if background:
             accum_values = accum_values + (1 - accum_opacities) * background
         return accum_values, accum_opacities, weights

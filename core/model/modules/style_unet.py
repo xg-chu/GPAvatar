@@ -248,9 +248,7 @@ class ResBlock(nn.Module):
         out = out + skip
         return out
 
-
 if __name__ == '__main__':
-    # ckpt = torch.load('./GFPGANv1.3.pth', map_location='cpu')['params_ema']
     model = StyleUNet(in_size=512, in_dim=3, out_dim=16*3, out_size=256).cuda()
     # model.load_state_dict(ckpt)
     # raise Exception
