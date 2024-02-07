@@ -23,37 +23,16 @@ class OneModel(LightningOSBase):
         self.raw_cam_size = 128
         self.config_dict = config_dict
         self.data_meta_info = data_meta_info
-        # standard points
-        _abs_script_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-        _head_points_path = os.path.join(_abs_script_path, 'mean_head.pth')
-        standard_points = torch.load(_head_points_path, map_location='cpu')[None]
-        standard_points *= data_meta_info['flame_scale']
-        # random.seed(42)
-        # self.points_id = torch.tensor(random.choices(list(range(standard_points.shape[-2])), k=2000)).long()
-        # self.standard_points = torch.nn.Parameter(standard_points[:, self.points_id], requires_grad=False)
-        self.standard_points = torch.nn.Parameter(standard_points, requires_grad=False)
-        print('Verts_scale: {}, verts_number: {}'.format(data_meta_info['flame_scale'], self.standard_points.shape[-2]))
-
         # trainable params
-        self.points_tplane = torch.nn.Parameter(torch.randn(1, 3, 32, 256, 256), requires_grad=True)
         self.style_tplane = StyleUNet(in_size=512, out_size=256, in_dim=3, out_dim=96, activation=False)
         self.nerf_mlp = PointsDecoder(in_dim=32, out_dim=32, points_number=5023, points_k=8)
         self.up_renderer = StyleUNet(in_size=512, out_size=512, in_dim=32, out_dim=3)
         # attn module
         self.query_style_tplane = torch.nn.Parameter(torch.randn(1, 1, 3, 32, 256, 256), requires_grad=True)
         self.attn_module = MTAttention(dim=32, qkv_bias=True)
-        # from core.libs.GFPGAN import GFPGANv1Clean
-        # self.up_renderer = GFPGANv1Clean(out_size=512, pretrained=True)
         # loss
         self.percep_loss = PerceptualLoss()
         self.nerf_camera = CubicNeRFCamera(data_meta_info['focal_length'], [128, 128], 32)
-
-    def get_points_feature(self, batch_size):
-        point_tplanes = self.points_tplane.expand(batch_size, -1, -1, -1, -1)
-        points_features = sample_from_planes(
-            self.standard_points.expand(batch_size, -1, -1), point_tplanes, return_type='mean'
-        )
-        return points_features
 
     def forward_train(self, f_images, d_images, d_points, d_transforms, d_bbox, **kwargs):
         if hasattr(self, 'points_id'):
@@ -81,11 +60,10 @@ class OneModel(LightningOSBase):
         else:
             tex_tplanes = tex_tplanes[:, 0]
         # render
-        points_features = self.get_points_feature(batch_size)
         gen_coarse, gen_fine, params_dict = self.nerf_camera.render(
             nerf_query_fn=self.nerf_mlp, noise=True, background=0.0, 
             # nerf_fn params
-            points_position=d_points, points_features=points_features, tex_tplanes=tex_tplanes
+            points_position=d_points, tex_tplanes=tex_tplanes
         )
         gen_sr = self.up_renderer(gen_fine)
         gen_coarse, gen_fine = gen_coarse[:, :3], gen_fine[:, :3]
@@ -122,11 +100,10 @@ class OneModel(LightningOSBase):
         else:
             tex_tplanes = tex_tplanes[:, 0]
         # render
-        points_features = self.get_points_feature(batch_size)
         _, gen_fine, params_dict = self.nerf_camera.render(
             nerf_query_fn=self.nerf_mlp, noise=False, background=0.0, 
             # nerf_fn params
-            points_position=d_points, points_features=points_features, tex_tplanes=tex_tplanes
+            points_position=d_points, tex_tplanes=tex_tplanes
         )
         gen_sr = self.up_renderer(gen_fine)
         gen_fine = gen_fine[:, :3]
@@ -175,7 +152,6 @@ class OneModel(LightningOSBase):
                 self.query_style_tplane.expand(batch_size, -1, -1, -1, -1, -1),
                 tex_tplanes
             )
-            self.points_features = self.get_points_feature(batch_size)
             print('Tri-Planes built.')
         # render
         # set camera pose
@@ -184,7 +160,7 @@ class OneModel(LightningOSBase):
         _, gen_fine, params_dict = self.nerf_camera.render(
             nerf_query_fn=self.nerf_mlp, noise=False, background=0.0, 
             # nerf_fn params
-            points_position=d_points, points_features=self.points_features, tex_tplanes=self.texture_planes
+            points_position=d_points, tex_tplanes=self.texture_planes
         )
         gen_sr = self.up_renderer(gen_fine)
         gen_fine = gen_fine[:, :3]

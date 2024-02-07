@@ -3,8 +3,7 @@
 
 import torch
 import pytorch_lightning as ptl
-import core.utils.distributed as dist
-from pytorch_lightning.callbacks import ModelCheckpoint, RichProgressBar
+from pytorch_lightning.callbacks import RichProgressBar
 
 from core.tools.builder import build_model, build_dataset
 
@@ -53,7 +52,7 @@ class LightningEngine:
             print(self.config_dict)
         if basemodel is not None:
             ckpt = torch.load(basemodel, map_location='cpu')
-            self.model.load_state_dict(ckpt['state_dict'], strict=False)
+            self.model.load_state_dict(ckpt['state_dict'], strict=True)
         self.lightning_trainer.fit(
             model=self.model, 
             train_dataloaders=self.train_dataloader, 
