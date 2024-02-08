@@ -53,16 +53,18 @@ pip3 install mediapipe tqdm rich lmdb einops colored ninja av opencv-python scik
 </details>
 
 ## Preparation
-We are now preparing the <b>pre-trained model and quick start materials</b> and will release it within a week.
+Build resources with ```bash ./build_resources.sh```.
+
+Download the [model checkpoint](https://github.com/xg-chu/GPAvatar/releases/download/v1.0.0/one_model.ckpt) and put it at ```checkpoints/one_model.ckpt```.
 
 ## Quick Start
 Driven by images:
 ```
-python inference.py -v -d 0 --driver ./drivers/vfhq_drivers --image ./examples/real1
+python inference.py -r ./checkpoints/one_model.ckpt --driver ./demos/drivers/pdriver --input ./demos/examples/real1
 ```
 or driven by video:
 ```
-python inference.py -v -d 0 --driver ./drivers/video_driver0 --image ./examples/real1
+python inference.py -r ./checkpoints/one_model.ckpt --driver ./demos/drivers/vdriver1 --input ./demos/examples/art1 -v
 ``` 
 
 ## Citation
