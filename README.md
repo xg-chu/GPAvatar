@@ -73,10 +73,11 @@ If you find our work useful in your research, please consider citing:
 ```bibtex
 @inproceedings{
     chu2024gpavatar,
-    title   = {GPAvatar: Generalizable and Precise Head Avatar from Image(s)}, 
-    author  = {Xuangeng Chu and Yu Li and Ailing Zeng and Tianyu Yang and Lijian Lin and Yunfei Liu and Tatsuya Harada},
-    journal = {ICLR},
-    year    = {2024},
+    title={{GPA}vatar: Generalizable and Precise Head Avatar from Image(s)},
+    author={Xuangeng Chu and Yu Li and Ailing Zeng and Tianyu Yang and Lijian Lin and Yunfei Liu and Tatsuya Harada},
+    booktitle={The Twelfth International Conference on Learning Representations},
+    year={2024},
+    url={https://openreview.net/forum?id=hgehGq2bDv}
 }
 ```
 
