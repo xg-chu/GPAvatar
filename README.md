@@ -50,7 +50,32 @@ conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=
 conda install -c fvcore -c iopath -c conda-forge fvcore iopath
 conda install pytorch3d -c pytorch3d
 pip3 install mediapipe tqdm rich lmdb einops colored ninja av opencv-python scikit-image onnxruntime-gpu onnx transformers pykalman
+pip3 install pytorch-lightning==2.1.3
+pip3 install git+https://github.com/nerfstudio-project/nerfacc.git
+pip3 install nerfacc -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/torch-2.0.0_cu118.html
 ```
+</details>
+
+<details>
+
+<summary><span style="font-weight: bold;">Install with environment.yml (recommend)</span></summary>
+
+```
+conda env create -f environment.yml
+conda activate GPAvatar
+pip3 install nerfacc -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/torch-2.0.0_cu118.html
+```
+
+</details>
+
+<details>
+
+<summary><span>Run with Dockerfile</span></summary>
+
+```
+If your environment has unknown or unsolvable issues, use the Dockerfile in https://github.com/xg-chu/lightning_track as a final solution.
+```
+
 </details>
 
 ## Preparation
@@ -90,43 +115,3 @@ We thank you for sharing their wonderful code and their wonderful work.
 - **EMOCA**: https://github.com/radekd91/emoca
 - **MICA**: https://github.com/Zielon/MICA
 
-
-<!-- ## Installation
-### Build environment
-<details>
-<summary><span >Install step by step</span></summary>
-
-```
-conda create -n track python=3.9
-conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.8 -c pytorch -c nvidia
-conda install -c fvcore -c iopath -c conda-forge fvcore iopath
-conda install pytorch3d -c pytorch3d
-pip3 install mediapipe tqdm rich lmdb einops colored ninja av opencv-python scikit-image onnxruntime-gpu onnx transformers pykalman
-```
-
-</details>
-<details>
-
-<summary><span style="font-weight: bold;">Install with environment.yml (recommend)</span></summary>
-
-```
-conda env create -f environment.yml
-```
-
-</details>
-
-
-### Build source
-Check the ```build_resources.sh```.
-
-
-## Fast start
-
-Track on video:
-```
-python track_video.py -v demos/demo.mp4 --synthesis
-```
-or track all videos in a directory:
-```
-python track_video.py -v demos/ --no_vis
-``` -->
