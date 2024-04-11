@@ -51,8 +51,8 @@ conda install -c fvcore -c iopath -c conda-forge fvcore iopath
 conda install pytorch3d -c pytorch3d
 pip3 install mediapipe tqdm rich lmdb einops colored ninja av opencv-python scikit-image onnxruntime-gpu onnx transformers pykalman
 pip3 install pytorch-lightning==2.1.3
-pip3 install git+https://github.com/nerfstudio-project/nerfacc.git
-pip3 install nerfacc -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/torch-2.0.0_cu118.html
+<!-- pip3 install git+https://github.com/nerfstudio-project/nerfacc.git -->
+pip3 install nerfacc==0.5.3 -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/torch-2.0.0_cu118.html
 ```
 </details>
 
@@ -63,7 +63,7 @@ pip3 install nerfacc -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/to
 ```
 conda env create -f environment.yml
 conda activate GPAvatar
-pip3 install nerfacc -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/torch-2.0.0_cu118.html
+pip3 install nerfacc==0.5.3 -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/torch-2.0.0_cu118.html
 ```
 
 </details>
@@ -73,7 +73,7 @@ pip3 install nerfacc -f https://nerfacc-bucket.s3.us-west-2.amazonaws.com/whl/to
 <summary><span>Run with Dockerfile</span></summary>
 
 ```
-If your environment has unknown or unsolvable issues, use the Dockerfile in https://github.com/xg-chu/lightning_track as a final solution.
+If your environment has unknown or unsolvable issues, please use the Dockerfile in https://github.com/xg-chu/lightning_track as a final solution.
 ```
 
 </details>
