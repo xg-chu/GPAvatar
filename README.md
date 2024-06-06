@@ -7,7 +7,7 @@
 
 
 <h5 align="center">
-    <a href="https://github.com/xg-chu">Xuangeng Chu</a><sup>1,2</sup>&emsp;
+    <a href="https://xg-chu.github.io">Xuangeng Chu</a><sup>1,2</sup>&emsp;
     <a href="https://yu-li.github.io">Yu Li</a><sup>2</sup>&emsp;
     <a href="https://ailingzeng.site">Ailing Zeng</a><sup>2</sup>&emsp;
     <a href="https://tianyu-yang.com">Tianyu Yang</a><sup>2</sup>&emsp;
