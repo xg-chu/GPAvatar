@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) Xuangeng Chu (purkialo@gmail.com)
+# Copyright (c) Xuangeng Chu (xg.chu@outlook.com)
 
 import os
 import sys
