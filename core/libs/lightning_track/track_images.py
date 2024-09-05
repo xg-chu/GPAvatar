@@ -79,7 +79,7 @@ class TrackEngine:
                 mini_batch, mini_batch_emoca, batch_frames=batch_frames
             )
             batch_frames = None
-            if visualization is not None:
+            if visualization is not None and vis_path is not None:
                 torchvision.utils.save_image(visualization, vis_path)
             lightning_results.update(lightning_result)
         for fkey in lightning_results:
