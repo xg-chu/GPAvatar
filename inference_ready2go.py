@@ -5,14 +5,14 @@ import torch
 import torchvision
 from inference_tools import gpavatar_r2g
 
-### fast run
+### ------------------- fast run  ------------------- ###
 model = gpavatar_r2g().cuda()
 model.build_avatar(inp_track=None) # should be online lightning track results
 
 render_res = model(expression=torch.zeros(1, 50).cuda(), pose=torch.zeros(1, 6).cuda())
 torchvision.utils.save_image(render_res, 'debug.jpg')
 
-### track with image
+### ------------ run with inp&tgt image ------------- ###
 def read_image(image_path):
     image = torchvision.io.read_image(image_path, mode=torchvision.io.ImageReadMode.RGB).float()/255.0
     image = torchvision.transforms.functional.resize(image, 512, antialias=True)
@@ -47,7 +47,6 @@ tgt_images, tgt_result = track_engine.track_images([tgt_image]) # error may occu
 if tgt_result.keys() == []:
     raise Exception('Track failed!')
 tgt_result = tgt_result['0']
-
 ## model part
 model = gpavatar_r2g().cuda()
 model.build_avatar(inp_track=inp_track) # should be online lightning track results
