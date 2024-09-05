@@ -10,7 +10,7 @@ model = gpavatar_r2g().cuda()
 model.build_avatar(inp_track=None) # should be online lightning track results
 
 render_res = model(expression=torch.zeros(1, 50).cuda(), pose=torch.zeros(1, 6).cuda())
-torchvision.utils.save_image(render_res, 'debug.jpg')
+torchvision.utils.save_image(render_res, 'render_res.jpg')
 
 ### ------------ run with inp&tgt image ------------- ###
 def read_image(image_path):
@@ -55,4 +55,4 @@ render_res = model(
     pose=torch.tensor(tgt_result['emoca_pose'][None]).cuda(),
     transform_matrix= torch.tensor(tgt_result['transform_matrix'][None]).cuda()
 )[0].cpu()
-torchvision.utils.save_image([inp_image, tgt_image, render_res], 'debug.jpg', padding=0)
+torchvision.utils.save_image([inp_image, tgt_image, render_res], 'render_res.jpg', padding=0)
