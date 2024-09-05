@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# Copyright (c) Xuangeng Chu (xg.chu@outlook.com)
+
 import torch
 import torchvision
 from inference_tools import gpavatar_r2g

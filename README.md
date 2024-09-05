@@ -93,6 +93,9 @@ or driven by video:
 python inference.py -r ./checkpoints/one_model.ckpt --driver ./demos/drivers/vdriver1 --input ./demos/examples/art1 -v
 ``` 
 
+## Fast Inference
+Please refer to ```inference_ready2go.py``` for some quick inference tools. There are some scripts for easy inference with given only expression features, or given input and target images.
+
 ## Citation
 If you find our work useful in your research, please consider citing:
 ```bibtex
